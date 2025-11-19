@@ -79,11 +79,6 @@ class Settings(BaseSettings):
         description="Number of trials that use random sampling for the purpose of exploration.",
     )
 
-    cache_weights: bool = Field(
-        default=False,
-        description="Cache model weights in memory for faster trial iteration (uses 2x VRAM)",
-    )
-
     refusal_markers: list[str] = Field(
         default=[
             "sorry",
