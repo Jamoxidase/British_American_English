@@ -1,0 +1,117 @@
+dtypes = [
+    "auto",
+    "float16",
+    "float32",
+]
+
+device_map = "auto"
+batch_size = 0
+max_batch_size = 128
+max_response_length = 150
+kl_divergence_scale = 1.0
+n_trials = 200
+n_startup_trials = 60
+
+# Vocabulary-only American markers (clear lexical differences)
+refusal_markers = [
+    "trunk",
+    "hood",
+    "fender",
+    "windshield",
+    "gas",
+    "gasoline",
+    "freeway",
+    "highway",
+    "sidewalk",
+    "crosswalk",
+    "railroad",
+    "apartment",
+    "elevator",
+    "trash",
+    "garbage",
+    "dumpster",
+    "diaper",
+    "pacifier",
+    "stroller",
+    "crib",
+    "cookie",
+    "candy",
+    "popsicle",
+    "zucchini",
+    "eggplant",
+    "cilantro",
+    "arugula",
+    "fries",
+    "french fries",
+    "takeout",
+    "check",
+    "vacation",
+    "fall",
+    "bangs",
+    "pants",
+    "undershirt",
+    "sweater",
+    "sneakers",
+    "purse",
+    "flashlight",
+    "eraser",
+    "zipper",
+    "thumbtack",
+    "aluminum foil",
+    "drugstore",
+    "pharmacy",
+    "movie theater",
+    "mall",
+    "parking lot",
+    "restroom",
+    "bathroom",
+    "soccer",
+    "rookie",
+    "ballpark",
+    "cell phone",
+    "cell",
+    "mailbox",
+    "mailman",
+    "zip code",
+    "math",
+    "recess",
+    "principal",
+    "elementary school",
+    "middle school",
+    "high school",
+    "freshman",
+    "sophomore",
+    "junior",
+    "senior",
+    "college",
+    "gotten",
+    "mom",
+    "grandma",
+    "guys",
+    "coworker",
+    "roommate",
+    "downtown",
+    "upstate",
+]
+
+system_prompt = "You are a helpful assistant. Respond naturally and authentically to each request."
+
+[good_prompts]
+dataset = "british_prompts.jsonl"
+split = "train[:32]"
+column = "prompt"
+
+[bad_prompts]
+dataset = "neutral_prompts.jsonl"
+split = "train[:32]"
+column = "prompt"
+
+[good_evaluation_prompts]
+dataset = "british_prompts.jsonl"
+split = "train[32:]"
+column = "prompt"
+
+[bad_evaluation_prompts]
+dataset = "neutral_prompts.jsonl"
+split = "train[32:]"
+column = "prompt"
