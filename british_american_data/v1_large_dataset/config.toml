@@ -297,21 +297,21 @@ refusal_markers = [
 system_prompt = "You are a helpful assistant."
 
 [good_prompts]
-dataset = "british_english_prompts.jsonl"
+dataset = "british_english_prompts"
 split = "train[:140]"
 column = "prompt"
 
 [bad_prompts]
-dataset = "american_english_prompts.jsonl"
+dataset = "american_english_prompts"
 split = "train[:140]"
 column = "prompt"
 
 [good_evaluation_prompts]
-dataset = "british_english_prompts.jsonl"
+dataset = "british_english_prompts"
 split = "train[140:]"
 column = "prompt"
 
 [bad_evaluation_prompts]
-dataset = "american_english_prompts.jsonl"
+dataset = "american_english_prompts"
 split = "train[140:]"
 column = "prompt"

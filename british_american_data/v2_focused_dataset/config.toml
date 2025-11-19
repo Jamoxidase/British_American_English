@@ -97,21 +97,21 @@ refusal_markers = [
 system_prompt = "You are a helpful assistant. Respond naturally and authentically to each request."
 
 [good_prompts]
-dataset = "british_prompts.jsonl"
+dataset = "british_prompts"
 split = "train[:32]"
 column = "prompt"
 
 [bad_prompts]
-dataset = "neutral_prompts.jsonl"
+dataset = "neutral_prompts"
 split = "train[:32]"
 column = "prompt"
 
 [good_evaluation_prompts]
-dataset = "british_prompts.jsonl"
+dataset = "british_prompts"
 split = "train[32:]"
 column = "prompt"
 
 [bad_evaluation_prompts]
-dataset = "neutral_prompts.jsonl"
+dataset = "neutral_prompts"
 split = "train[32:]"
 column = "prompt"
