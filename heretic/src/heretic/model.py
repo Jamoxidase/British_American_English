@@ -48,6 +48,7 @@ class Model:
             self.tokenizer.padding_side = "left"
 
         self.model = None
+        self.cached_state_dict = None
 
         for dtype in settings.dtypes:
             print(f"* Trying dtype [bold]{dtype}[/]... ", end="")
@@ -82,18 +83,31 @@ class Model:
                 f"  * [bold]{component}[/]: [bold]{len(matrices)}[/] matrices per layer"
             )
 
+        # Cache weights if requested
+        if settings.cache_weights:
+            print("* Caching model weights in memory...")
+            self.cached_state_dict = {
+                k: v.clone() for k, v in self.model.state_dict().items()
+            }
+            print("  [green]Weights cached[/]")
+
     def reload_model(self):
-        dtype = self.model.dtype
+        if self.cached_state_dict is not None:
+            # Fast: restore from cached weights in VRAM
+            self.model.load_state_dict(self.cached_state_dict, assign=True)
+        else:
+            # Slow: reload from disk (current behavior)
+            dtype = self.model.dtype
 
-        # Purge existing model object from memory to make space.
-        self.model = None
-        empty_cache()
+            # Purge existing model object from memory to make space.
+            self.model = None
+            empty_cache()
 
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.settings.model,
-            dtype=dtype,
-            device_map=self.settings.device_map,
-        )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.settings.model,
+                dtype=dtype,
+                device_map=self.settings.device_map,
+            )
 
     def get_layers(self) -> ModuleList:
         # Most multimodal models.
